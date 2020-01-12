@@ -71,7 +71,7 @@
     // implemented for you. Instead of using a standard `for` loop, though,
     // it uses the iteration helper `each`, which you will need to write.
     var result = -1;
-    _.each(array, function(item, index) {
+    _.each(array, function(item, index, array) {
       if (item === target && result === -1) {
         result = index;
       }
@@ -100,11 +100,9 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
-    let uniqArray = [];
-    return _.filter(array, function(item, index) {
-      if (_.indexOf(array, item) === index) uniqArray.push(item)
-      return uniqArray
-  });
+    let arrayDup = array.slice()
+      let uniqueArray = [...new Set(arrayDup)];
+    return uniqueArray
   };
 
 
@@ -159,18 +157,14 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    if (accumulator === undefined) {
-      accumulator = collection[0]
-      let secondAcc = collection[1]
-      return _.last(_.map(collection, function(item) {
-        return accumulator = (secondAcc = iterator(secondAcc, item));
-      }));
-    } else {
-      accumulator = accumulator
-      return _.last(_.map(collection, function(item) {
-        return accumulator = iterator(accumulator, item);
-      }));
-    }
+    let noAccumulator = arguments.length < 3;
+  _.each(collection, function(item, index){
+    if(noAccumulator && index === 0) {
+      noAccumulator = false;
+      accumulator = item;
+    } else accumulator = iterator(accumulator, item);
+  });
+  return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
