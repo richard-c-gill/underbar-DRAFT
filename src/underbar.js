@@ -38,11 +38,11 @@
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
-    if (n === undefined) { 
+    if (n === undefined) {
        return array[array.length- 1]
    } else if (n > array.length) {
      return array
-   } else { 
+   } else {
        return array.slice(array.length - n , array.length);
    }
  };
@@ -88,7 +88,7 @@
         passed.push(item);
       }
     })
-    return passed 
+    return passed
   };
 
   // Return all elements of an array that don't pass a truth test.
@@ -139,19 +139,19 @@
   // Reduces an array or object to a single value by repetitively calling
   // iterator(accumulator, item) for each item. accumulator should be
   // the return value of the previous iterator call.
-  //  
+  //
   // You can pass in a starting value for the accumulator as the third argument
   // to reduce. If no starting value is passed, the first element is used as
   // the accumulator, and is never passed to the iterator. In other words, in
   // the case where a starting value is not passed, the iterator is not invoked
   // until the second element, with the first element as its second argument.
-  //  
+  //
   // Example:
   //   var numbers = [1,2,3];
   //   var sum = _.reduce(numbers, function(total, number){
   //     return total + number;
   //   }, 0); // should be 6
-  //  
+  //
   //   var identity = _.reduce([5], function(total, number){
   //     return total + number * number;
   //   }); // should be 5, regardless of the iterator function passed in
@@ -183,6 +183,16 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+
+    // set up reduce to return true if test past for * both * before and after values
+
+    return _.reduce(collection, function (before, after) {
+        if (!before) {
+            return false;
+        }
+    }, true);
+
+
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
