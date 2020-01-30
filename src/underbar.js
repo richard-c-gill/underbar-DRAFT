@@ -206,7 +206,25 @@
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
+
+    // check array vs object
+    let keys = Array.isArray(collection) && Object.keys(collection)
+    let length = keys.length
+    if (length == false) {
+      length = collection.length}
+
+      //iterate through object or array 
+    for (let i = 0; i < length; i++) {
+      let currentKey;
+      if (keys) {
+        currentKey = keys[i];
+      } else {
+        currentKey = i;
+      }
+      // set to pass in iterator
+      if (iterator(collection[currentKey], currentKey, collection)) return true;
+    }
+    return false;
   };
 
 
