@@ -182,17 +182,25 @@
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
 
-    // set up reduce to return true if test past for * both * before and after values
+    // set up simple test to make sure iterator is passed in or not
+    let test = iterator
+    if (test === undefined) {
+      test = _.identity
+    }
 
+    // implement test inside reduce
     return _.reduce(collection, function (before, after) {
         if (!before) {
             return false;
+        } else {
+            if (test(after)) {
+              return true
+            } else {
+              return false
+            }
         }
     }, true);
-
-
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
