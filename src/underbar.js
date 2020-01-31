@@ -247,7 +247,7 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-    for (let i = 0; i < arguments.length; i++){
+    for (let i = 0; i < arguments.length; i++) {
       for (let key in arguments[i]){
         arguments[0][key] = arguments[i][key];
  
@@ -259,6 +259,15 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    for (let i = 0; i < arguments.length; i++) {
+      for (let key in arguments[i]) {
+        if (arguments[0].hasOwnProperty(key)) {
+          break;
+        }
+          arguments[0][key] = arguments[i][key]; 
+      }
+    }
+    return arguments[0]
   };
 
 
