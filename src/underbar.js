@@ -311,17 +311,22 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    // store the results
-    let storedResults = []
-    let alreadyCalled = false
+    // create the cache of values
+    let results = {}
 
-    return function () {
-      if (!alreadyCalled) {
-        result = func.apply(this, arguments)
-      }
+    // set up the function to return same values
+    return function() {
+
+      let argList = Array.prototype.slice.call(arguments); // this was RIDICULOUS how was I supposed to know this!
+      let key = argList.join('');
+
+      // check if there is cached property
+      if (!results.hasOwnProperty(key)) {
+        results[key] = func.apply(this, argList);
     }
 
-
+    return results[key];
+  }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -362,13 +367,12 @@
 
     // set random number placeHolder
     let rand = 0
-    let placeHolder = arrLength
+    let placeHolder = arrCopy.length
 
     // Set the range for the random numbers to be generated to the length of array 
     
-    
     // Iterate through the elements and place them into new array with random indexes
-    for (let i = 0; i < arrLength; i ++) {
+    for (let i = 0; i < array.length; i ++) {
       placeHolder = placeHolder - 1
 
       let tempIndex
