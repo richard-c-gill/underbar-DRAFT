@@ -354,13 +354,32 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    // get shallow array copy
+    let arrCopy = array.slice()
+
     // Get the array length
+    let arrLength = arrCopy.length
 
-    // Set the range for the random numbers to be generated to the length of array
+    // set random number placeHolder
+    let rand = 0
+    let placeHolder = arrLength
 
+    // Set the range for the random numbers to be generated to the length of array 
+    
+    
     // Iterate through the elements and place them into new array with random indexes
+    for (let i = 0; i < arrLength; i ++) {
+      placeHolder = placeHolder - 1
 
+      let tempIndex
+      rand = Math.floor(Math.random() * (arrLength + 1));
+
+      tempIndex = arrCopy[placeHolder]
+      arrCopy[placeHolder] = arrCopy[rand]
+      arrCopy[rand] = tempIndex
+    }
     // return the new array
+    return arrCopy
   };
 
 
