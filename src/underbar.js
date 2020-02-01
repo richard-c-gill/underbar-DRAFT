@@ -331,11 +331,14 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-    // *** Need to get arguments past wait ***
-
+    // create argList to pass into function
+    let argList = []
+    for (let i = 2; i < arguments.length; i++ ) {
+      argList.push(arguments[i])
+    }
     /// set basis for the function code
       setTimeout(function () {
-        func();
+        func.apply(this, argList);
       }, wait)
   };
 
