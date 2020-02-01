@@ -354,6 +354,13 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    // Get the array length
+
+    // Set the range for the random numbers to be generated to the length of array
+
+    // Iterate through the elements and place them into new array with random indexes
+
+    // return the new array
   };
 
 
