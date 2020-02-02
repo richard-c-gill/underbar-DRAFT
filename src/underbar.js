@@ -100,9 +100,13 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
-    let arrayDup = array.slice()
-      let uniqueArray = [...new Set(arrayDup)];
-    return uniqueArray
+    let uniqArray = [];
+  _.each(array, function(item){
+    if(_.indexOf(uniqArray, item) === -1){
+      uniqArray.push(item);
+    }
+  })
+  return uniqArray;
   };
 
 
@@ -207,6 +211,11 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
 
+    if (iterator) {
+      iterator = iterator
+     } else {
+       iterator = _.identity;
+     } 
     // check array vs object
     let keys = Array.isArray(collection) && Object.keys(collection)
     let length = keys.length
@@ -368,15 +377,18 @@
     // set random number placeHolder
     let rand = 0
     let placeHolder = arrCopy.length
-
+    let tempIndex
     // Set the range for the random numbers to be generated to the length of array 
     
     // Iterate through the elements and place them into new array with random indexes
     for (let i = 0; i < array.length; i ++) {
-      placeHolder = placeHolder - 1
+      if (placeHolder === 0) {
+        placeHolder = placeHolder - 1;
+        break;
+      }
 
-      let tempIndex
-      rand = Math.floor(Math.random() * (arrLength + 1));
+      placeHolder = placeHolder - 1
+      rand = Math.floor(Math.random() * (placeHolder + 1));
 
       tempIndex = arrCopy[placeHolder]
       arrCopy[placeHolder] = arrCopy[rand]
